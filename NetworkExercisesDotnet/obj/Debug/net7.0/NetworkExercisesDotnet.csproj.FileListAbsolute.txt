@@ -1,0 +1,14 @@
+C:\Users\batic\source\repos\NetworkExercisesDotnet\NetworkExercisesDotnet\obj\Debug\net7.0\NetworkExercisesDotnet.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\batic\source\repos\NetworkExercisesDotnet\NetworkExercisesDotnet\obj\Debug\net7.0\NetworkExercisesDotnet.AssemblyInfoInputs.cache
+C:\Users\batic\source\repos\NetworkExercisesDotnet\NetworkExercisesDotnet\obj\Debug\net7.0\NetworkExercisesDotnet.AssemblyInfo.cs
+C:\Users\batic\source\repos\NetworkExercisesDotnet\NetworkExercisesDotnet\obj\Debug\net7.0\NetworkExercisesDotnet.csproj.CoreCompileInputs.cache
+C:\Users\batic\source\repos\NetworkExercisesDotnet\NetworkExercisesDotnet\bin\Debug\net7.0\NetworkExercisesDotnet.exe
+C:\Users\batic\source\repos\NetworkExercisesDotnet\NetworkExercisesDotnet\bin\Debug\net7.0\NetworkExercisesDotnet.deps.json
+C:\Users\batic\source\repos\NetworkExercisesDotnet\NetworkExercisesDotnet\bin\Debug\net7.0\NetworkExercisesDotnet.runtimeconfig.json
+C:\Users\batic\source\repos\NetworkExercisesDotnet\NetworkExercisesDotnet\bin\Debug\net7.0\NetworkExercisesDotnet.dll
+C:\Users\batic\source\repos\NetworkExercisesDotnet\NetworkExercisesDotnet\bin\Debug\net7.0\NetworkExercisesDotnet.pdb
+C:\Users\batic\source\repos\NetworkExercisesDotnet\NetworkExercisesDotnet\obj\Debug\net7.0\NetworkExercisesDotnet.dll
+C:\Users\batic\source\repos\NetworkExercisesDotnet\NetworkExercisesDotnet\obj\Debug\net7.0\refint\NetworkExercisesDotnet.dll
+C:\Users\batic\source\repos\NetworkExercisesDotnet\NetworkExercisesDotnet\obj\Debug\net7.0\NetworkExercisesDotnet.pdb
+C:\Users\batic\source\repos\NetworkExercisesDotnet\NetworkExercisesDotnet\obj\Debug\net7.0\NetworkExercisesDotnet.genruntimeconfig.cache
+C:\Users\batic\source\repos\NetworkExercisesDotnet\NetworkExercisesDotnet\obj\Debug\net7.0\ref\NetworkExercisesDotnet.dll

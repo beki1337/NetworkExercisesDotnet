@@ -1,0 +1,144 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\batic\\source\\repos\\NetworkExercisesDotnet\\NetworkExercisesDotnetTests\\NetworkExercisesDotnetTests.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\batic\\source\\repos\\NetworkExercisesDotnet\\NetworkExercisesDotnetTests\\NetworkExercisesDotnetTests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\batic\\source\\repos\\NetworkExercisesDotnet\\NetworkExercisesDotnetTests\\NetworkExercisesDotnetTests.csproj",
+        "projectName": "NetworkExercisesDotnetTests",
+        "projectPath": "C:\\Users\\batic\\source\\repos\\NetworkExercisesDotnet\\NetworkExercisesDotnetTests\\NetworkExercisesDotnetTests.csproj",
+        "packagesPath": "C:\\Users\\batic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\batic\\source\\repos\\NetworkExercisesDotnet\\NetworkExercisesDotnetTests\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\batic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\batic\\source\\repos\\NetworkExercisesDotnet\\NetworkExercisesDotnet\\NetworkExercisesDotnet.csproj": {
+                "projectPath": "C:\\Users\\batic\\source\\repos\\NetworkExercisesDotnet\\NetworkExercisesDotnet\\NetworkExercisesDotnet.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[2.2.10, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[2.2.10, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.7.1, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.69, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\batic\\source\\repos\\NetworkExercisesDotnet\\NetworkExercisesDotnet\\NetworkExercisesDotnet.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\batic\\source\\repos\\NetworkExercisesDotnet\\NetworkExercisesDotnet\\NetworkExercisesDotnet.csproj",
+        "projectName": "NetworkExercisesDotnet",
+        "projectPath": "C:\\Users\\batic\\source\\repos\\NetworkExercisesDotnet\\NetworkExercisesDotnet\\NetworkExercisesDotnet.csproj",
+        "packagesPath": "C:\\Users\\batic\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\batic\\source\\repos\\NetworkExercisesDotnet\\NetworkExercisesDotnet\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\batic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
