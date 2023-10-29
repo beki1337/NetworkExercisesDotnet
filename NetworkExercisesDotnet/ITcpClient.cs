@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace NetworkExercisesDotnet
 {
+    /// <summary>
+    /// Defines methods for connecting to a remote server and obtaining a 
+    /// network stream for data transfer, serving as a wrapper for the 
+    /// <see href="https://learn.microsoft.com/en-us/dotnet/api/system.net.sockets.tcpclient?view=net-7.0">
+    /// C# .NET TcpClient class</see>.
+    /// </summary>
     public interface ITcpClient
     {
 

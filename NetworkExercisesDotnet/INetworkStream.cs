@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace NetworkExercisesDotnet
 {
+    /// <summary>
+    /// Defines methods for reading and writing data to a network stream, 
+    /// serving as a wrapper for the C# .NET NetworkStream class.
+    /// <see href="https://learn.microsoft.com/en-us/dotnet/api/system.net.sockets.networkstream?view=net-7.0#methods">C# .NET NetworkStream class</see>
+    /// </summary>
     public interface INetworkStream
     {
         /// <summary>
