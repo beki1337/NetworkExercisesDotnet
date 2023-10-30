@@ -1,5 +1,6 @@
 ﻿using NetworkExercisesDotnet;
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -18,8 +19,8 @@ namespace NetworkExercisesNS
         /// <remarks>
         /// To complete this exercise, you need to  use the provide ITcpClient 
         /// object that is initialized. Use one of the provided Connect methods
-        /// from the ITcpClient object to connect to the target server. You can
-        /// choose any IP address and port to connect to the server.
+        /// from the ITcpClient object to connect to the target server. You 
+        /// shall use the IP address 127.0.0.1 and the port 6667.
         /// Here is a helpful link:
         /// https://learn.microsoft.com/en-us/dotnet/api/system.net.sockets.tcpclient?view=net-7.0#methods
         /// </remarks>
@@ -37,13 +38,14 @@ namespace NetworkExercisesNS
         /// In this exercise, you will use the provided initialized ITcpClient
         /// object to connect to a target server. You can choose the IP address and port.
         /// When the target computer refuses the connection, a SocketException is thrown.
-        /// Use a Try/Catch block to catch and handle only the SocketException .
+        /// Use a Try/Catch block to catch and handle only the SocketException. The
+        /// method shall return true if no Exception is thrown and false if a SocketException
+        /// is thrown.
         /// </remarks>
         /// <param name="tcpClient">The TcpClient instance to use for the connection.</param>
-        public static void EstablishConnectionWithTcpClientException(ITcpClient tcpClient)
+        public static bool EstablishConnectionWithTcpClientException(ITcpClient tcpClient)
         {
             throw new NotImplementedException();
-
         }
 
 
@@ -87,7 +89,7 @@ namespace NetworkExercisesNS
         /// Close the TcpListern
         /// </summary>
         /// <remarks>
-        /// In this exercise, the ITcpListener object will have started 
+        /// In this exercise, the ITcpListener object will have started
         /// listening for connections. Your assignment is to close the
         /// listener using the Stop method. 
         /// Here is a helpful link:
@@ -97,12 +99,12 @@ namespace NetworkExercisesNS
         /// <exception cref="NotImplementedException"></exception>
         public static void CloseTcpListern(ITcpListener listener)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException   ();
         }
 
 
         /// <summary>
-        /// Get the NetworkStrem from the ITcpClien object.
+        /// Get the NetworkStrem from the ITcpClient object.
         /// </summary>
         /// <remarks>
         /// In this exercise, you will use the provided, initialized ITcpClient
@@ -124,15 +126,15 @@ namespace NetworkExercisesNS
         /// </summary>
         /// <remarks>
         /// In this exercise, you will utilize the Read method of the INetworkStream
-        /// to retrieve data from the stream and return it as a string. 
+        /// to retrieve data from the stream and return it as a string. The message 
+        /// is encode with Encoding.UTF8 method.
         /// Here is a helpful link:
-        /// https://learn.microsoft.com/en-us/dotnet/api/system.net.sockets.networkstream?view=net-7.0#methods
+        /// https://learn.microsoft.com/en-us/dotnet/api/system.net.sockets.networkstream.read?view=net-7.0#system-net-sockets-networkstream-read(system-byte()-system-int32-system-int32)
         /// </remarks>
         /// <param name="stream">The INetworkStream to read data from.</param>
         /// <returns>The data read from the stream as a string.</returns>
         public static string ReadfromStrem(INetworkStream stream)
         {
-
             throw new NotImplementedException();
         }
 
@@ -142,14 +144,16 @@ namespace NetworkExercisesNS
         /// </summary>
         /// <remarks>
         /// In this exercise, you will use the Write method of the INetworkStream
-        /// to send data to the stream. You can send any message you want. 
+        /// to send data to the stream. Use the Encoding.UTF8 method to encode
+        /// the message
         /// Here is a helpful link:
-        /// https://learn.microsoft.com/en-us/dotnet/api/system.net.sockets.networkstream?view=net-7.0#methods
+        /// https://learn.microsoft.com/en-us/dotnet/api/system.net.sockets.networkstream.write?view=net-7.0#system-net-sockets-networkstream-write(system-byte()-system-int32-system-int32)
         /// </remarks>
         /// <param name="stream">The INetworkStream to which data will be written.</param>
         public static void WriteToStream(INetworkStream stream)
         {
             throw new NotImplementedException();
+
         }
 
 
@@ -191,7 +195,9 @@ namespace NetworkExercisesNS
         public static void Main(string[] args)
         {
 
-            Console.WriteLine("You need to run the tests to assert the exercises");
+            Console.WriteLine("You need to run the tests to assert the exercises." +
+                "In the task you have File | Edit | View | Git | Project | Build | Debug | Test | ..." +
+                "Press Test and the Run All Tests");
         }
     }
 }

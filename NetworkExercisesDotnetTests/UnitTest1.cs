@@ -16,7 +16,7 @@ namespace NetworkExercisesDotnetTests
         /// on an ITcpClient object, ensuring that it is called only once to enforce proper behavior.
         /// </summary>
         [TestMethod]
-        public void PerformConnection()
+        public void EstablishConnectionWithTcpClient()
         {
             // Arrange
             var tcpClientMock = new Mock<ITcpClient>();
@@ -31,8 +31,8 @@ namespace NetworkExercisesDotnetTests
             // Assert
             bool methodWasCalled = tcpClientMock.Invocations.Any(invocation => invocation.Method.Name == "Connect");
             int numberCalled = tcpClientMock.Invocations.Count(invocation => invocation.Method.Name == "Connect");
-            Assert.IsTrue(methodWasCalled);
-            Assert.AreEqual(1, numberCalled, "The Connect method should only be called once to enforce proper behavior");
+            Assert.IsTrue(methodWasCalled, "The Connect method was not called from the TcpClient object");
+            Assert.AreEqual(1, numberCalled, $"The Connect method should only be called once to enforce proper behavior now it was called {numberCalled} times");
 
         }
 
@@ -45,9 +45,9 @@ namespace NetworkExercisesDotnetTests
             var tcpClientMock = new Mock<ITcpClient>();
             string? capturedStringIpAddressArg = null;
             int capturedIntPortArg = 0;
-            IPAddress capturedIpAddressArg = null;
-            IPEndPoint capturedIPEndPointArg = null;
-            IPAddress[] capturedIpAddressArrayArg = null;
+            IPAddress? capturedIpAddressArg = null;
+            IPEndPoint? capturedIPEndPointArg = null;
+            IPAddress[]? capturedIpAddressArrayArg = null;
             int capturedIntArrayArg = 0;
 
             tcpClientMock.Setup(x => x.Connect(It.IsAny<string>(), It.IsAny<int>()))
@@ -62,7 +62,6 @@ namespace NetworkExercisesDotnetTests
                 {
                     capturedIpAddressArg = ipAddress;
                     capturedIntPortArg = port;
-
                 });
 
             tcpClientMock.Setup(x => x.Connect(It.IsAny<IPEndPoint>()))
@@ -77,7 +76,6 @@ namespace NetworkExercisesDotnetTests
                 {
                     capturedIpAddressArrayArg = ipAddressArray;
                     capturedIntArrayArg = num;
-
                 });
 
 
@@ -85,14 +83,40 @@ namespace NetworkExercisesDotnetTests
             //Act
             NetworkExercises.EstablishConnectionWithTcpClient(tcpClientMock.Object);
             //Assert
+            if(capturedStringIpAddressArg != null)
+            {
+                Assert.AreEqual(capturedStringIpAddressArg, "127.0.0.1",
+                    $"The TCP client should connect to IP address 127.0.0.1, but it's connecting to {capturedStringIpAddressArg}");
+                Assert.AreEqual(capturedIntPortArg, 6667, 
+                    $"The TCP client should connect to port 6667, but it's trying to connect to {capturedIntPortArg}");
+               
+            }
+            else if (capturedIpAddressArg != null) {
+               bool same = Equals(capturedIpAddressArg, IPAddress.Parse("127.0.0.1"));
+               Assert.IsTrue(same,
+                   $"The TCP client should connect to IP address 127.0.0.1, but it's connecting to {capturedIpAddressArg}");
+               Assert.AreEqual(capturedIntPortArg, 6667,
+                   $"The TCP client should connect to port 6667, but it's trying to connect to {capturedIntPortArg}");
+            } 
+            else if (capturedIPEndPointArg != null)
+            {
+                
+                IPAddress capturedIpAddrres = capturedIPEndPointArg.Address;
+                int capturedPort = capturedIPEndPointArg.Port;
+                bool sameIpAddres = Equals(capturedIpAddrres, IPAddress.Parse("127.0.0.1"));
+                Assert.IsTrue(sameIpAddres,
+                  $"The TCP client should connect to IP address {IPAddress.Parse("127.0.0.1")}, but it's connecting to {capturedIpAddrres}");
+                Assert.AreEqual(capturedPort, 6667,
+                    $"The TCP client should connect to port 6667, but it's trying to connect to {capturedPort}");
 
-
+            }
+            
 
         }
 
 
         [TestMethod]
-        public void Connect_ThrowsSocketError()
+        public void EstablishConnectionWithTcpClient_ThrowsSocketExceptionWhenConnecting()
         {
             //Arrange
             var tcpClientMock = new Mock<ITcpClient>();
@@ -108,17 +132,20 @@ namespace NetworkExercisesDotnetTests
                 .Throws(new SocketException());
 
             //Act
-            NetworkExercises.EstablishConnectionWithTcpClientException(tcpClientMock.Object);
+            bool isSocketException = NetworkExercises.EstablishConnectionWithTcpClientException(tcpClientMock.Object);
             //Assert
             bool methodWasCalled = tcpClientMock.Invocations.Any(invocation => invocation.Method.Name == "Connect");
             int numberCalleds = tcpClientMock.Invocations.Count(invocation => invocation.Method.Name == "Connect");
             Assert.IsTrue(methodWasCalled);
-            Assert.AreEqual(1, numberCalleds, "The method should only called once");
+            Assert.AreEqual(1, numberCalleds, "The method should only be called once");
+            Assert.IsFalse(isSocketException,
+                "The EstablishConnectionWithTcpClientException method was expected to return " +
+                "false due to a SocketException, but it returned true instead. ");
 
         }
 
         [TestMethod]
-        public void Connect_ThrowsExpeions()
+        public void EstablishConnectionWithTcpClient_ThrowExceptionWhenConnecting()
         {
             //Arrange
             var tcpClientMock = new Mock<ITcpClient>();
@@ -134,12 +161,41 @@ namespace NetworkExercisesDotnetTests
                 .Throws(new Exception());
 
             //Act and Assert
-            Assert.ThrowsException<Exception>(() => NetworkExercises.EstablishConnectionWithTcpClientException(tcpClientMock.Object));
+            Assert.ThrowsException<Exception>(() => NetworkExercises.EstablishConnectionWithTcpClientException(tcpClientMock.Object),
+                 "The method should only catch a SocketException, but it caught a different exception.");
         }
 
 
+
         [TestMethod]
-        public void Get_NetworkStrem()
+        public void EstablishConnectionWithTcpClient_ThrowsNoExceptionWhenConnecting()
+        {
+            //Arrange
+            var tcpClientMock = new Mock<ITcpClient>();
+
+            // Set up the Connect method to throw a SocketException
+            tcpClientMock.Setup(x => x.Connect(It.IsAny<string>(), It.IsAny<int>()));
+            tcpClientMock.Setup(x => x.Connect(It.IsAny<IPAddress>(), It.IsAny<int>()));
+            tcpClientMock.Setup(x => x.Connect(It.IsAny<IPEndPoint>()));
+            tcpClientMock.Setup(x => x.Connect(It.IsAny<IPAddress[]>(), It.IsAny<int>()));
+
+            //Act
+            bool isSocketException = NetworkExercises.EstablishConnectionWithTcpClientException(tcpClientMock.Object);
+            //Assert
+            bool methodWasCalled = tcpClientMock.Invocations.Any(invocation => invocation.Method.Name == "Connect");
+            int numberCalleds = tcpClientMock.Invocations.Count(invocation => invocation.Method.Name == "Connect");
+            Assert.IsTrue(methodWasCalled);
+            Assert.AreEqual(1, numberCalleds, "The method should only be called once");
+            Assert.IsTrue(isSocketException,
+                "The EstablishConnectionWithTcpClientException method was expected to return " +
+                "true due to no Exception, but it returned false instead. ");
+
+        }
+
+
+
+        [TestMethod]
+        public void GetNetworkStream_ReturnsNetworkStreamFromTcpClient()
         {
             //Arrange
             var tcpClientMock = new Mock<ITcpClient>();
@@ -148,22 +204,23 @@ namespace NetworkExercisesDotnetTests
 
             //Act 
 
-            NetworkExercises.GetNetworkStream(tcpClientMock.Object);
+            INetworkStream returnedStream = NetworkExercises.GetNetworkStream(tcpClientMock.Object);
             //Assert
 
-            tcpClientMock.Verify(tc => tc.GetStream(), Times.Once);
+            tcpClientMock.Verify(tc => tc.GetStream(), Times.Once,
+                "The get stream messages should only be called once");
+
+            Assert.AreSame(networkStreamMock.Object, returnedStream, 
+                "The returned NetworkStream is not the same as that is returnd from GetStream() method.");
 
         }
 
 
-
-
-
-        [TestMethod]
-        public void ReadMessage()
+       [TestMethod]
+        public void ReadMessageFromNetworkStream_ReturnsExpectedString()
         {
             //Arrange
-            string inputString = "Hello world";
+            string inputString = "Hello World!";
             byte[] utf8Bytes = Encoding.UTF8.GetBytes(inputString);
             var networkStreamMock = new Mock<INetworkStream>();
             networkStreamMock.Setup(x => x.Read(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>()))
@@ -177,16 +234,18 @@ namespace NetworkExercisesDotnetTests
             string testString = NetworkExercises.ReadfromStrem(networkStreamMock.Object);
             //Assert
 
-            Assert.AreEqual(inputString, testString);
+            Assert.AreEqual(inputString, testString, 
+                $"The Stream returned the expected message: \"{inputString}\", but you returned: \"{testString}\"");
 
 
         }
 
 
         [TestMethod]
-        public void SendMessage()
+        public void SendMessageToNetworkStream_WritesExpectedString()
         {
             //Arrange
+            string message = "Hello World!";
             byte[] inputedBuffer = new byte[1024];
             int inputedOffset = 0;
             int inputedBytesLenght = 0;
@@ -203,12 +262,13 @@ namespace NetworkExercisesDotnetTests
 
             //Assert
             string testString = Encoding.UTF8.GetString(inputedBuffer, inputedOffset, inputedBytesLenght);
-            Assert.AreEqual("Hello world", testString);
+            Assert.AreEqual(message, testString,
+                $"The Write method expected to get: \"{message}\", but received: \"{testString}\"");
         }
 
 
         [TestMethod]
-        public void StartListning()
+        public void StartListening_StartsTcpListener()
         {
             //Arrange
             var tcpListnerMock = new Mock<ITcpListener>();
@@ -220,8 +280,8 @@ namespace NetworkExercisesDotnetTests
 
         }
 
-        [TestMethod]
-        public void AccepetTcpClient()
+       [TestMethod]
+        public void AcceptTcpClient_ReturnsAcceptedTcpClient()
         {
             //Arrange
             var tcpListnerMock = new Mock<ITcpListener>();
@@ -231,11 +291,11 @@ namespace NetworkExercisesDotnetTests
             //Act
             ITcpClient tcpList = NetworkExercises.AcceptClinets(tcpListnerMock.Object);
             //Assert
-            Assert.AreEqual(tcpList, tcpClientMock.Object);
+            Assert.AreEqual(tcpList, tcpClientMock.Object, $"The returned TcpClient is not the same as that is returnd from AcceptTcpClient() method.");
         }
 
         [TestMethod]
-        public void Stop()
+        public void CloseTcpListener_StopsListening()
         {
             // Arrange
             var tcpListnerMock = new Mock<ITcpListener>();
@@ -247,7 +307,7 @@ namespace NetworkExercisesDotnetTests
         }
 
         [TestMethod]
-        public void ReadConnectionClosed()
+        public void ReadFromClosedConnection_ReturnsFalseOnSocketException()
         {
             // Arrange
             var networkStreamMock = new Mock<INetworkStream>();
@@ -255,14 +315,16 @@ namespace NetworkExercisesDotnetTests
                 .Throws(new SocketException());
 
             // Act
-            bool answer = NetworkExercises.ReadFromClosedConnection(networkStreamMock.Object);
+            bool readFromSocket = NetworkExercises.ReadFromClosedConnection(networkStreamMock.Object);
             // Assert
-            Assert.IsTrue(!answer);
+
+            Assert.IsFalse(readFromSocket,
+                "The ReadFromClosedConnection method was expected to return false due to a SocketException, but it returned true instead.");
         }
 
 
         [TestMethod]
-        public void ReadConnectionOtherError()
+        public void ReadFromConnectionThrowsExceptionOnOtherError()
         {
             // Arrange
             var networkStreamMock = new Mock<INetworkStream>();
@@ -270,11 +332,12 @@ namespace NetworkExercisesDotnetTests
                 .Throws(new Exception());
 
             // Act and Assert
-            Assert.ThrowsException<Exception>(() => NetworkExercises.ReadFromClosedConnection(networkStreamMock.Object));
+            Assert.ThrowsException<Exception>(() => NetworkExercises.ReadFromClosedConnection(networkStreamMock.Object),
+                "The method should only catch a SocketException, but it caught a different exception.");
         }
 
         [TestMethod]
-        public void ReadfromOpenConnection()
+        public void ReadFromOpenConnection_ReturnsTrueOnSuccessfulRead()
         {
             //Arrange
             string inputString = "Hello world";
@@ -288,10 +351,11 @@ namespace NetworkExercisesDotnetTests
                 }).Returns(utf8Bytes.Length);
             //Act 
 
-            bool answer = NetworkExercises.ReadFromClosedConnection(networkStreamMock.Object);
+            bool readFromSocket = NetworkExercises.ReadFromClosedConnection(networkStreamMock.Object);
             //Assert
 
-            Assert.IsTrue(answer);
+            Assert.IsTrue(readFromSocket, 
+                "The ReadFromClosedConnection method was expected to return true , but it returned false instead.");
 
         }
 
